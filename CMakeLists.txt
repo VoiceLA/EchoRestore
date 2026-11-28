@@ -9,8 +9,15 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}")
 
 add_library(echorestore_options INTERFACE)
 target_compile_features(echorestore_options INTERFACE cxx_std_20)
+
 if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
     target_compile_options(echorestore_options INTERFACE -Wall -Wextra -Wpedantic)
 endif()
 
 add_subdirectory(common)
+
+option(ECHORESTORE_BUILD_NETWORK "Build the networking component" ON)
+
+if(ECHORESTORE_BUILD_NETWORK)
+    add_subdirectory(network)
+endif()
