@@ -15,7 +15,6 @@ using Bytes = std::array<unsigned char, 12>;
 
 [[noreturn]] void fail(std::string_view message) {
   throw std::runtime_error("WAV: " + std::string(message));
-  throw std::runtime_error("WAV: " + std::string(message));
 }
 
 void read_exact(std::istream &input, unsigned char *bytes, std::size_t count) {
@@ -34,8 +33,6 @@ std::uint32_t read_le(const unsigned char *bytes, unsigned count) {
   return value;
 }
 
-bool has_id(const unsigned char *bytes, std::string_view id) {
-  return std::equal(id.begin(), id.end(), bytes);
 bool has_id(const unsigned char *bytes, std::string_view id) {
   return std::equal(id.begin(), id.end(), bytes);
 }
@@ -73,7 +70,6 @@ void validate_format(const unsigned char *format) {
     fail("invalid PCM16 byte rate or block alignment");
 }
 
-} // namespace
 } // namespace
 
 Pcm16Audio read_wav(const std::filesystem::path &path) {
@@ -157,7 +153,7 @@ Pcm16Audio read_wav(const std::filesystem::path &path) {
     fail("required fmt or data chunk is missing");
 
   Pcm16Audio audio;
-  const auto sample_count = data_bytes / 2;
+  const auto sample_count = static_cast<std::size_t>(data_bytes / 2);
 
   if (sample_count > audio.samples.max_size())
     fail("sample count exceeds buffer limits");
@@ -248,5 +244,4 @@ void write_wav(const std::filesystem::path &path, const Pcm16Audio &audio) {
     fail("failed to finish output: " + path.string());
 }
 
-} // namespace echorestore::audio
 } // namespace echorestore::audio
