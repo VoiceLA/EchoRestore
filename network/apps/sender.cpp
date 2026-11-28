@@ -28,8 +28,7 @@ int main(int argc, char **argv) {
 
         if (!options.manifest.empty() &&
             std::filesystem::absolute(options.input).lexically_normal() ==
-                std::filesystem::absolute(options.manifest)
-                    .lexically_normal())
+                std::filesystem::absolute(options.manifest).lexically_normal())
           throw std::invalid_argument(
               "Input and manifest must have distinct paths");
 
