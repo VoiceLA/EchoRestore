@@ -51,32 +51,4 @@ The custom protocol is for trusted local/test networks and is not RTP.
 - [Usage and parameter details](network/docs/USAGE.md), [protocol](network/docs/PROTOCOL.md), [manual checks](network/docs/EXPERIMENTS.md).
 
 Use `--help` on each executable. `-DECHORESTORE_BUILD_NETWORK=OFF` builds only
-shared WAV tooling. Test infrastructure remains deferred to the team.
-
-## Formatting
-
-C/C++ sources use the LLVM style with **clang-format 18**. The formatter is
-a development tool; it is not required to run the pipeline.
-
-The normal workflow is `git push` → wait for GitHub Actions to format the sources
-and push a formatting commit → `git pull`. No local Git hooks are used.
-
-Optional manual checks and fixes for C/C++ files tracked by Git, from the
-repository root:
-
-```bash
-sudo apt-get install clang-format-18
-
-# Check formatting
-git ls-files -z -- '*.cpp' '*.h' '*.hpp' | xargs -0 -r clang-format-18 --dry-run --Werror
-
-# Apply formatting
-git ls-files -z -- '*.cpp' '*.h' '*.hpp' | xargs -0 -r clang-format-18 -i
-```
-
-GitHub Actions checks every branch push and pull request. On push it fixes style,
-rechecks and pushes a separate formatting commit; run `git pull` afterwards.
-The repository must permit Actions to write contents and push to that branch.
-Branch protection can reject the automatic push; in that case apply fixes locally.
-Pull request runs show the formatting diff and fail until the sources are formatted,
-including for forks. The workflow does not build or run the audio pipeline.
+shared WAV tooling. 
