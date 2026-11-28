@@ -2,6 +2,11 @@
 /build/
 /build-*/
 /cmake-build-*/
-
+/.cache/
+/docs/
 # Generated sample WAV
 /examples/sample.wav
+AGENTS.md
+# Generated network outputs
+/examples/sample.session
+/output/
